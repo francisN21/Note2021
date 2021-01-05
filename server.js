@@ -5,7 +5,7 @@ const app = express();
 const apiRoutes = require("./routes/apiRoutes");
 const clientRoutes = require("./routes/clientRoutes");
 // PORT
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 5000;
 // to read html
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
