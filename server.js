@@ -5,7 +5,7 @@ const app = express();
 const apiRoutes = require("./routes/apiRoutes");
 const clientRoutes = require("./routes/clientRoutes");
 // PORT
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 // to read html
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,4 +15,4 @@ app.use(express.static("public"));
 app.use("/api", apiRoutes);
 app.use("/", clientRoutes);
 // localhost!
-app.listen(PORT, () => console.log(`listening at https://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
