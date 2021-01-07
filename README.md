@@ -2,7 +2,7 @@
 
 ![](./public/assets/picturs/NoteTaker.gif)
 
-Deployed at ![https://takemeaway-notetaker.herokuapp.com/](https://takemeaway-notetaker.herokuapp.com/)
+Deployed at [https://takemeaway-notetaker.herokuapp.com/](https://takemeaway-notetaker.herokuapp.com/)
 
 ### Descritption
 
