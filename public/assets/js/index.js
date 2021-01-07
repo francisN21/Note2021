@@ -3,12 +3,14 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let deleteAll;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
+  deleteAll = document.querySelector('.deleteAll-notes');
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
@@ -23,6 +25,7 @@ const hide = (elem) => {
 };
 
 // activeNote is used to keep track of the note in the textarea
+// place holder for the written text on the text area for the note
 let activeNote = {};
 
 const getNotes = () =>
@@ -42,13 +45,14 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+// comment out since this is on the wrong location moved it below
+// const deleteNote = (id) =>
+//   fetch(`/api/notes/${id}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -81,13 +85,27 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
+  // delete id is set but to delete it is non existent
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  // created this so we can delete the notes
+  let deleteCurrentNote = (JSON.parse(note.parentElement.getAttribute('data-note')));
 
   if (activeNote.id === noteId) {
     activeNote = {};
   }
 
-  deleteNote(noteId).then(() => {
+  // changed the way it deletes the saved notes. instead of deleting it via ID I changed it to delete on to the json db file
+  const deleteNote = () =>
+  fetch(`/api/notes/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(deleteCurrentNote)
+  });
+
+
+  deleteNote().then(() => {
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -98,6 +116,10 @@ const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
+
+  // allows to display the saved notes to where the text title is and the text area
+  noteTitle.value = activeNote.title;
+  noteText.value = activeNote.text;
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
@@ -113,6 +135,16 @@ const handleRenderSaveBtn = () => {
     show(saveNoteBtn);
   }
 };
+
+// wanted to add delete all notes button
+// not yet functional so far
+// const handleRenderDeleteAllNotes = () =>{
+//   if (){
+
+//   }
+
+// }
+
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
@@ -143,8 +175,9 @@ const renderNoteList = async (notes) => {
         'text-danger',
         'delete-note'
       );
+      
       delBtnEl.addEventListener('click', handleNoteDelete);
-
+      
       liEl.append(delBtnEl);
     }
 
