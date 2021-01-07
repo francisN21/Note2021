@@ -2,6 +2,8 @@
 
 ![](./public/assets/picturs/NoteTaker.gif)
 
+Deployed at ![https://takemeaway-notetaker.herokuapp.com/](https://takemeaway-notetaker.herokuapp.com/)
+
 ### Descritption
 
 This app allows you to write notes and save them. You can delete and create a new notes as you please.
