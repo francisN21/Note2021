@@ -1,5 +1,6 @@
-
 # NoteTaker
+
+![](./public/assets/picturs/NoteTaker.gif)
 
 ### Descritption
 
